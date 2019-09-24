@@ -1,4 +1,4 @@
-import React, { SFC, Fragment, useEffect, useState, useRef } from 'react'
+import React, { SFC, Fragment, useEffect, useState, useRef, useMemo } from 'react'
 import { Icon } from 'antd';
 import { PageProps, useConfig, Link } from 'docz'
 import Edit from 'react-feather/dist/icons/edit-2'
@@ -168,6 +168,14 @@ export const Page: SFC<PageProps> = ({
   useEffect(() => {
     if (hash) {
       setCurrentSlug(decodeURI(hash.slice(1)))
+      if(!document.querySelector(decodeURI(hash))){
+        setTimeout(()=>{
+          const dom = document.querySelector(decodeURI(hash));
+          if(dom){
+            dom.scrollIntoView();
+          }
+        }, 600)
+      }
     } else if (anchors.length) {
       setCurrentSlug(anchors[0].slug)
     }
@@ -178,7 +186,9 @@ export const Page: SFC<PageProps> = ({
     }
   }, [hash])
 
-  const content = (
+  // WARNING: 这里用了 children.props.location.pathname 来缓存 content 的内容，
+  // 避免 hash change 的时候，playground 重新渲染，实现方案有待商榷
+  const content = useMemo(()=> (
     <Fragment>
       {link && edit && (
         <EditPage href={link} target="_blank">
@@ -187,7 +197,7 @@ export const Page: SFC<PageProps> = ({
       )}
       {children}
     </Fragment>
-  )
+  ), [link, edit, children && children.props.location.pathname])
 
   const highlightAnchor = (slug: string) => {
     if (currentSlug === slug) {
@@ -211,7 +221,7 @@ export const Page: SFC<PageProps> = ({
               const ele = menu || {};
               const isExternalLink = (ele.link || '').startsWith('http') || (ele.link || '').startsWith('//');
               return (
-                <a href={ele.link} target={isExternalLink ? "_blank" : '_self'} aria-label="external links" ><LinkText><span>{ele.title}</span>{isExternalLink && <Icon type="link" />}</LinkText></a>
+                <a key={ele.title} href={ele.link} target={isExternalLink ? "_blank" : '_self'} aria-label="external links" ><LinkText><span>{ele.title}</span>{isExternalLink && <Icon type="link" />}</LinkText></a>
               )
             })
           }

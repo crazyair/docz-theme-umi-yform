@@ -21,9 +21,16 @@ const Icon = styled(Hash)`
 
 const Heading = styled.h2`
   position: relative;
+  margin-top: -3.6rem;
+  padding-top: 3.6rem;
+  width: fit-content;
   
   &:hover .heading--Icon {
     opacity: 1;
+  }
+
+  & a {
+    position: absolute;
   }
 
   ${get('styles.h2')};

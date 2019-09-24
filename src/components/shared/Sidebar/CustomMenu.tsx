@@ -58,6 +58,10 @@ const CustomMenu: React.SFC<CustomMenuProps> = ({ query }) => {
   const { pathname } = location
   const docs = useDocs()
 
+  const scrollTop = () => {
+    document.querySelector('#root > div')!.scrollIntoView();
+  }
+
   // 按 menu 组织文档顺序
   const docsArrangedInMenu =
     docs &&
@@ -105,7 +109,7 @@ const CustomMenu: React.SFC<CustomMenuProps> = ({ query }) => {
                 {item.menu &&
                   item.menu.map(v => (
                     <Item selected={v.route === pathname} key={v.route}>
-                      <Link to={v.route}>
+                      <Link onClick={scrollTop} to={v.route}>
                         <span>{v.name}</span>
                       </Link>
                     </Item>
@@ -114,7 +118,7 @@ const CustomMenu: React.SFC<CustomMenuProps> = ({ query }) => {
             ) : (
               <React.Fragment key={item.menu[0].route}>
                 <Item selected={item.menu[0].route === pathname} size="large">
-                  <Link to={item.menu[0].route}>
+                  <Link onClick={scrollTop} to={item.menu[0].route}>
                     <span>{item.menu[0].name}</span>
                   </Link>
                 </Item>

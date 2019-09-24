@@ -98,9 +98,9 @@ export const NotFound = () => {
     <Content>
       <Sidebar />
       <Wrapper>
-      <Title>Page Not Found</Title>
+      <Title>404 Not Found</Title>
       <Subtitle>
-        Check if you haven't changed the document route or deleted it!
+        Hooks 走丢了，请在侧边栏重新选择要查看的 hooks!
       </Subtitle>
     </Wrapper>
     </Content>

@@ -281,4 +281,4 @@ export const Playground: SFC<PlaygroundProps> = ({
       </Overlay>
     </LiveProvider>
   )
-}
+};
