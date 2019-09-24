@@ -21,8 +21,6 @@ const Icon = styled(Hash)`
 
 const Heading = styled.h3`
   position: relative;
-  font-size: 1.35rem;
-  color: #2c3e50;
 
   &:hover .heading--Icon {
     opacity: 1;

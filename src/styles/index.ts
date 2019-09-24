@@ -8,38 +8,37 @@ export const styles = {
     line-height: 1.6;
   `,
   h1: css`
-    margin: 40px 0 20px;
     font-family: ${get('fonts.display')};
-    font-size: 48px;
-    font-weight: 600;
+    font-size: 2.2rem; 
+    color: #2c3e50;
     letter-spacing: -0.02em;
   `,
   h2: css`
-    margin: 30px 0 15px;
     line-height: 1.4em;
+    font-size: 1.65rem; 
+    color: #2c3e50;
     font-family: ${get('fonts.display')};
     font-weight: 500;
-    font-size: 28px;
     letter-spacing: -0.02em;
   `,
   h3: css`
-    margin: 25px 0 10px;
-    font-size: 20px;
+    font-size: 1.35rem; 
+    color: #2c3e50;
     font-weight: 400;
   `,
   h4: css`
-    margin: 25px 0 10px;
-    font-size: 16px;
+    font-size: 1.2rem; 
+    color: #2c3e50;
     font-weight: 400;
   `,
   h5: css`
-    margin: 20px 0 10px;
-    font-size: 16px;
+    font-size: 1rem; 
+    color: #2c3e50;
     font-weight: 400;
   `,
   h6: css`
-    margin: 20px 0 10px;
-    font-size: 16px;
+    font-size: 1rem; 
+    color: #2c3e50;
     font-weight: 400;
     text-transform: uppercase;
   `,
