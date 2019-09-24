@@ -1,0 +1,74 @@
+{
+  "name": "docz-theme-umi-hooks",
+  "version": "0.0.1",
+  "description": "The umi-hooks theme of docz.",
+  "license": "MIT",
+  "main": "es/index.js",
+  "module": "es/index.js",
+  "files": [
+    "dist/",
+    "es/",
+    "src/",
+    "package.json",
+    "README.md"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.com/"
+  },
+  "scripts": {
+    "dev": "father build --esm babel --watch",
+    "build": "father build --esm babel",
+    "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish"
+  },
+  "dependencies": {
+    "@reach/router": "^1.2.1",
+    "@rehooks/local-storage": "^1.6.0",
+    "@tippy.js/react": "^2.1.2",
+    "antd": "^3.19.2",
+    "codemirror": "^5.45.0",
+    "copy-text-to-clipboard": "^2.0.0",
+    "docz": "^1.0.4",
+    "facepaint": "^1.2.1",
+    "hotkeys-js": "^3.6.2",
+    "intersection-observer": "^0.7.0",
+    "lodash": "^4.17.11",
+    "polished": "^3.2.0",
+    "prop-types": "15.7.2",
+    "re-resizable": "^4.11.0",
+    "react": "^16.8.6",
+    "react-codemirror2": "^5.1.0",
+    "react-dom": "^16.8.6",
+    "react-feather": "^1.1.6",
+    "react-live": "1.12.0",
+    "react-perfect-scrollbar": "^1.4.4",
+    "scrollama": "^2.0.0",
+    "styled-components": "^4.2.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.4.3",
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-conventional": "^7.5.0",
+    "@commitlint/config-lerna-scopes": "^7.5.1",
+    "@types/find-up": "^2.1.1",
+    "@types/fs-extra": "^5.0.5",
+    "@types/jest": "^24.0.9",
+    "@types/lodash": "^4.14.123",
+    "@types/node": "^11.13.0",
+    "@types/prettier": "^1.16.1",
+    "@types/reach__router": "^1.2.4",
+    "@types/react": "^16.8.12",
+    "@types/react-dom": "^16.8.3",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/styled-components": "^4.1.12",
+    "babel-plugin-import": "^1.12.0",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "babel-plugin-styled-components": "^1.10.0",
+    "father": "^2.1.0",
+    "np": "^4.0.2"
+  }
+}

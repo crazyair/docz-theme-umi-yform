@@ -1,0 +1,30 @@
+{
+  "plugins": [
+    "lodash",
+    [
+      "module-resolver",
+      {
+        "extensions": [".ts", ".tsx"],
+        "root": ["./src"],
+        "alias": {
+          "@components": "./src/components",
+          "@utils": "./src/utils",
+          "@styles": "./src/styles"
+        }
+      }
+    ],
+    [
+      "babel-plugin-styled-components",
+      {
+        "ssr": false
+      }
+    ],
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": true,
+      }
+    ]
+  ]
+}
