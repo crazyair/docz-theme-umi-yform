@@ -68,13 +68,6 @@ const Empty = styled.div`
   color: ${sidebarText};
 `
 
-const BuiltWith = styled.div`
-  width: 100%;
-  bottom: 0px;
-  padding: 24px;
-  margin-bottom: 24px;
-`
-
 export const Sidebar: SFC = () => {
   const [hidden, setHidden] = useState(true)
   const [query, setQuery] = useState('')
@@ -119,14 +112,6 @@ export const Sidebar: SFC = () => {
             <Empty>{emptyPlaceholder}</Empty>
           ) : (
             <CustomMenu query={query} />
-          )}
-          {(
-            <BuiltWith>
-              <span>Build with </span>
-              <a href="https://github.com/umijs/father">father</a>
-              <span> and </span>
-              <a href="https://www.docz.site">docz</a>
-            </BuiltWith>
           )}
         </Content>
       </Wrapper>
