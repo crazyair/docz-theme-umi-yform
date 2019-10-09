@@ -25,7 +25,7 @@ const HeaderBar = styled.div`
   top: 0;
   z-index: 1001;
   background: white;
-  height: 3.6rem;
+  height: 55px;
   border-bottom: 1px solid #eaecef;
   display: flex;
   justify-content: space-between;
@@ -146,13 +146,13 @@ const LinkWrapper = styled(Link)`
 
 export const Page: SFC<PageProps> = ({
   children,
-  doc: { link, fullpage, edit = true, headings },
+  doc: { link, fullpage, edit = false, headings },
 }) => {
   const { title, base, themeConfig } = useConfig();
 
   // 右侧锚点只跟踪 h2 和 h3
   const anchors = headings.filter(v => [2, 3].includes(v.depth))
-  const { pathname, hash } = location
+  const { hash } = location
 
   const [currentSlug, setCurrentSlug] = useState()
   const mounted = useRef(false)
@@ -172,7 +172,9 @@ export const Page: SFC<PageProps> = ({
         setTimeout(()=>{
           const dom = document.querySelector(decodeURI(hash));
           if(dom){
-            dom.scrollIntoView();
+            const distance = (dom as HTMLElement).offsetTop - 16;
+            window.scrollTo(0, distance);
+            setCurrentSlug(decodeURI(hash).slice(1));
           }
         }, 600)
       }
@@ -207,6 +209,18 @@ export const Page: SFC<PageProps> = ({
     }
   }
 
+  const onClickAnchor = (e: any, slug: string) => {
+    e.preventDefault();
+    const dom = document.querySelector('#' + slug) as HTMLElement;
+    if(dom){
+      window.location.hash = '#' + slug;
+      window.setTimeout(()=>{
+        const distance = dom.offsetTop - 16;
+        window.scrollTo(0, distance);
+      })
+    }
+  }
+
   return (
     <Main>
       <HeaderBar>
@@ -230,28 +244,22 @@ export const Page: SFC<PageProps> = ({
       <Content>
         {!fullpage && <Sidebar />}
         <Wrapper>
-          {fullpage ? (
-            <Container fullpage>{content}</Container>
-          ) : (
-            <>
-              <Container>{content}</Container>
-              <AnchorWrapper>
-                <div>
-                  {anchors.map(a => (
-                    <Anchor key={a.slug} slug={a.slug} isCurrent={currentSlug === a.slug} depth={a.depth}>
-                      <LinkWrapper
-                        className="page-anchor"
-                        to={`${pathname}#${a.slug}`}
-                        style={highlightAnchor(a.slug)}
-                      >
-                        {a.value}
-                      </LinkWrapper>
-                    </Anchor>
-                  ))}
-                </div>
-              </AnchorWrapper>
-            </>
-          )}
+          <Container fullpage={fullpage}>{content}</Container>
+          {!fullpage && <AnchorWrapper>
+              <div>
+                {anchors.map(a => (
+                  <Anchor onClick={(e) => onClickAnchor(e, a.slug)} key={a.slug} slug={a.slug} isCurrent={currentSlug === a.slug} depth={a.depth}>
+                    <LinkWrapper
+                      className="page-anchor"
+                      to={''}
+                      style={highlightAnchor(a.slug)}
+                    >
+                      {a.value}
+                    </LinkWrapper>
+                  </Anchor>
+                ))}
+              </div>
+            </AnchorWrapper>}
         </Wrapper>
       </Content>
     </Main>

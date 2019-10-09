@@ -29,7 +29,7 @@ const HeaderBar = styled.div`
   top: 0;
   z-index: 1001;
   background: white;
-  height: 3.6rem;
+  height: 55px;
   border-bottom: 1px solid #eaecef;
   display: flex;
   justify-content: space-between;

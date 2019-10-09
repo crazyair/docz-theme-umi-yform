@@ -21,8 +21,6 @@ const Icon = styled(Hash)`
 
 const Heading = styled.h3`
   position: relative;
-  margin-top: -3.6rem;
-  padding-top: 3.6rem;
   width: fit-content;
 
   &:hover .heading--Icon {
@@ -51,20 +49,20 @@ export const H3: SFC<React.HTMLAttributes<any>> = ({ children, ...props }) => {
 
     // instantiate the scrollama
     const scroller = scrollama()
+    const percentage = 100 / window.innerHeight;
 
     // setup the instance, pass callback functions
     scroller
       .setup({
         step: '#' + props.id,
-        offset: 0.05,
+        offset: percentage,
+        threshold: 1,
         order: false,
       })
       .onStepEnter(() => {
-        if (isMounted.current && props.id !== localStorage.getItem('currentSlug')) {
+        if (props.id !== localStorage.getItem('currentSlug')) {
           localStorage.setItem('currentSlug', props.id || '')
           window.dispatchEvent(new Event('storage'))
-        } else {
-          isMounted.current = true
         }
       })
 
@@ -74,11 +72,23 @@ export const H3: SFC<React.HTMLAttributes<any>> = ({ children, ...props }) => {
     return () => {
       window.removeEventListener('resize', scroller.resize)
     }
-  }, [])
+  }, []);
+
+  const onClickLink = (e: any) => {
+    e.preventDefault();
+    const dom = document.querySelector('#' + props.id) as HTMLElement;
+    if(dom){
+      window.location.hash = '#' + props.id;
+      window.setTimeout(()=>{
+        const distance = dom.offsetTop - 16;
+        window.scrollTo(0, distance);
+      })
+    }
+  }
 
   return (
     <Heading {...props}>
-      <Link aria-hidden to={`${pathname}#${props.id}`}>
+      <Link onClick={onClickLink} aria-hidden to={''}>
         <Icon className="heading--Icon" height={16} />
       </Link>
       {children}

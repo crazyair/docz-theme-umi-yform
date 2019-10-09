@@ -49,7 +49,9 @@ const Wrapper = styled.div<WrapperProps>`
 `
 
 const Content = styled.div`
-  padding-top: 3rem;
+  ${mq({
+    paddingTop: ['0', '0', '0', '3rem'],
+  })};
   position: fixed;
   top: 24px;
   left: 0;
