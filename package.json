@@ -1,6 +1,6 @@
 {
   "name": "docz-theme-umi-hooks",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "The umi-hooks theme of docz.",
   "license": "MIT",
   "main": "es/index.js",
