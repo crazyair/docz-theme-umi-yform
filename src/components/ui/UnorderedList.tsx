@@ -2,19 +2,15 @@ import styled from 'styled-components'
 import { get } from '../../utils/theme'
 
 export const UnorderedList = styled.ul`
-  list-style: none;
-
-  & li::before {
-    content: '● ';
-    color: ${get('colors.border')};
-    font-weight: bold;
-    font-size: 0.5em;
-    margin-right: 5px;
-  }
+  list-style: circle !important;
 
   ${get('styles.ul')};
 
+    margin-left: 28px;
+
   ul li {
     padding-left: 25px;
+    margin-left: 20px;
+    padding-left: 4px;
   }
 `

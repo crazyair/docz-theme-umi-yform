@@ -75,25 +75,33 @@ const Subtitle = styled.p`
 `
 
 export const NotFound = () => {
+
+  const pathNameList = location.pathname.split('/');
+  const isChinese = pathNameList.includes('zh-cn');
+  const newHref = isChinese ? pathNameList.filter(ele => ele !== 'zh-cn').join('/') : '/zh-cn' + location.pathname;
+
   const { title, base, themeConfig } = useConfig();
   return (<Main>
     <HeaderBar>
-      <Link to={typeof base === 'string' ? base : '/'}>
-        <LogoText>
-          {title}
-        </LogoText>
-      </Link>
-      <div>
-        {
-          (themeConfig.menus || []).map(menu=>{
-            const ele = menu || {};
-            const isExternalLink = (ele.link || '').startsWith('http') || (ele.link || '').startsWith('//');
-            return (
-              <a href={ele.link} target={isExternalLink ? "_blank" : '_self'} aria-label="external links" ><LinkText><span>{ele.title}</span>{isExternalLink && <Icon type="link" />}</LinkText></a>
-            )
-          })
-        }
-      </div>
+    <Link to={typeof base === 'string' ? base : '/'}>
+      <LogoText>
+        {title}
+      </LogoText>
+    </Link>
+    <div>
+      <a key='switcher' href={newHref} target={'_self'} aria-label="language switcher" >
+        <LinkText>{isChinese ? 'English' : '中文'}</LinkText>
+      </a>
+      {
+        (themeConfig.menus || []).map(menu=>{
+          const ele = menu || {};
+          const isExternalLink = (ele.link || '').startsWith('http') || (ele.link || '').startsWith('//');
+          return (
+            <a key={ele.title} href={ele.link} target={isExternalLink ? "_blank" : '_self'} aria-label="external links" ><LinkText><span>{ele.title}</span>{isExternalLink && <Icon type="link" />}</LinkText></a>
+          )
+        })
+      }
+    </div>
     </HeaderBar>
     <Content>
       <Sidebar />

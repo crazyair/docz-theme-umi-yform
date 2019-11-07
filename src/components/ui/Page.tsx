@@ -73,7 +73,7 @@ export const Container = styled.div<{ fullpage?: boolean }>`
       width: props.fullpage
         ? ['100%', '100%', '100%']
         : ['100%', 'calc(100% - 113px)', 'calc(100% - 113px)'],
-      padding: ['20px', '24px'],
+      padding: ['16px 44px', '16px 48px'],
     })}
 
   ${get('styles.container')};
@@ -221,6 +221,10 @@ export const Page: SFC<PageProps> = ({
     }
   }
 
+  const pathNameList = location.pathname.split('/');
+  const isChinese = pathNameList.includes('zh-cn');
+  const newHref = isChinese ? pathNameList.filter(ele => ele !== 'zh-cn').join('/') : '/zh-cn' + location.pathname;
+
   return (
     <Main>
       <HeaderBar>
@@ -230,6 +234,9 @@ export const Page: SFC<PageProps> = ({
           </LogoText>
         </Link>
         <div>
+          <a key={'switcher'} href={newHref} target={'_self'} aria-label="language switcher" >
+            <LinkText>{isChinese ? 'English' : '中文'}</LinkText>
+          </a>
           {
             (themeConfig.menus || []).map(menu=>{
               const ele = menu || {};

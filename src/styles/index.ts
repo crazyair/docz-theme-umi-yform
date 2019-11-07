@@ -23,21 +23,25 @@ export const styles = {
   `,
   h3: css`
     font-size: 1.35rem; 
+    font-family: ${get('fonts.display')};
     color: #2c3e50;
     font-weight: 400;
   `,
   h4: css`
     font-size: 1.2rem; 
+    font-family: ${get('fonts.display')};
     color: #2c3e50;
     font-weight: 400;
   `,
   h5: css`
     font-size: 1rem; 
+    font-family: ${get('fonts.display')};
     color: #2c3e50;
     font-weight: 400;
   `,
   h6: css`
     font-size: 1rem; 
+    font-family: ${get('fonts.display')};
     color: #2c3e50;
     font-weight: 400;
     text-transform: uppercase;

@@ -24,6 +24,7 @@ const TableStyled = styled.table`
   border-collapse: collapse;
   border-style: hidden;
   border-radius: ${get('radii')};
+  color: #314659;
   color: ${get('colors.tableColor')};
 
   ${mq({
@@ -32,13 +33,13 @@ const TableStyled = styled.table`
   })}
 
   & thead {
-    color: ${get('colors.theadColor')};
-    background: ${get('colors.theadBg')};
+    color: #314659;
+    background: rgba(0,0,0,0.02);
   }
 
   & thead th {
     font-weight: 400;
-    padding: 20px 20px;
+    padding: 12px 20px;
 
     &:nth-of-type(1) {
       ${mq({

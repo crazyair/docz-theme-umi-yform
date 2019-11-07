@@ -77,7 +77,7 @@ export const theme = css`
     font-weight: normal;
     font-style: normal;
     text-decoration: none;
-    color: #d73a49;
+    color: #008dff;
   }
 
   .cm-s-docz-light .cm-storage {
@@ -102,6 +102,6 @@ export const theme = css`
     font-weight: normal;
     font-style: normal;
     text-decoration: none;
-    color: #e36209;
+    color: #f81d22;
   }
 `
