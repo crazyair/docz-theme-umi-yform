@@ -1,5 +1,5 @@
 import React, { SFC, Fragment, useEffect, useState, useRef, useMemo } from 'react'
-import { Icon } from 'antd';
+import { Icon } from 'antd'
 import { PageProps, useConfig, Link } from 'docz'
 import Edit from 'react-feather/dist/icons/edit-2'
 import styled from 'styled-components'
@@ -30,7 +30,7 @@ const HeaderBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .7rem 1.5rem;
+  padding: 0.7rem 1.5rem;
 `
 
 const Content = styled.div`
@@ -58,7 +58,7 @@ const LinkText = styled.span`
   text-decoration: none;
   font-weight: 500;
   margin-left: 16px;
-  font-size: .9rem;
+  font-size: 0.9rem;
 
   span {
     margin-right: 8px;
@@ -148,7 +148,7 @@ export const Page: SFC<PageProps> = ({
   children,
   doc: { link, fullpage, edit = false, headings },
 }) => {
-  const { title, base, themeConfig } = useConfig();
+  const { title, base, themeConfig } = useConfig()
 
   // 右侧锚点只跟踪 h2 和 h3
   const anchors = headings.filter(v => [2, 3].includes(v.depth))
@@ -168,13 +168,13 @@ export const Page: SFC<PageProps> = ({
   useEffect(() => {
     if (hash) {
       setCurrentSlug(decodeURI(hash.slice(1)))
-      if(!document.querySelector(decodeURI(hash))){
-        setTimeout(()=>{
-          const dom = document.querySelector(decodeURI(hash));
-          if(dom){
-            const distance = (dom as HTMLElement).offsetTop - 16;
-            window.scrollTo(0, distance);
-            setCurrentSlug(decodeURI(hash).slice(1));
+      if (!document.querySelector(decodeURI(hash))) {
+        setTimeout(() => {
+          const dom = document.querySelector(decodeURI(hash))
+          if (dom) {
+            const distance = (dom as HTMLElement).offsetTop - 16
+            window.scrollTo(0, distance)
+            setCurrentSlug(decodeURI(hash).slice(1))
           }
         }, 600)
       }
@@ -190,16 +190,19 @@ export const Page: SFC<PageProps> = ({
 
   // WARNING: 这里用了 children.props.location.pathname 来缓存 content 的内容，
   // 避免 hash change 的时候，playground 重新渲染，实现方案有待商榷
-  const content = useMemo(()=> (
-    <Fragment>
-      {link && edit && (
-        <EditPage href={link} target="_blank">
-          <EditIcon width={14} /> Edit page
-        </EditPage>
-      )}
-      {children}
-    </Fragment>
-  ), [link, edit, children && children.props.location.pathname])
+  const content = useMemo(
+    () => (
+      <Fragment>
+        {link && edit && (
+          <EditPage href={link} target="_blank">
+            <EditIcon width={14} /> Edit page
+          </EditPage>
+        )}
+        {children}
+      </Fragment>
+    ),
+    [link, edit, children && children.props.location.pathname]
+  )
 
   const highlightAnchor = (slug: string) => {
     if (currentSlug === slug) {
@@ -210,63 +213,73 @@ export const Page: SFC<PageProps> = ({
   }
 
   const onClickAnchor = (e: any, slug: string) => {
-    e.preventDefault();
-    const dom = document.querySelector('#' + slug) as HTMLElement;
-    if(dom){
-      window.location.hash = '#' + slug;
-      window.setTimeout(()=>{
-        const distance = dom.offsetTop - 16;
-        window.scrollTo(0, distance);
+    e.preventDefault()
+    const dom = document.querySelector('#' + slug) as HTMLElement
+    if (dom) {
+      window.location.hash = '#' + slug
+      window.setTimeout(() => {
+        const distance = dom.offsetTop - 16
+        window.scrollTo(0, distance)
       })
     }
   }
 
-  const pathNameList = location.pathname.split('/');
-  const isChinese = pathNameList.includes('zh-cn');
-  const newHref = isChinese ? pathNameList.filter(ele => ele !== 'zh-cn').join('/') : '/zh-cn' + location.pathname;
+  const pathNameList = location.pathname.split('/')
+  const isChinese = pathNameList.includes('zh-cn')
+  const newHref = isChinese
+    ? pathNameList.filter(ele => ele !== 'zh-cn').join('/')
+    : '/zh-cn' + location.pathname
 
   return (
     <Main>
       <HeaderBar>
         <Link to={typeof base === 'string' ? base : '/'}>
-          <LogoText>
-            {title}
-          </LogoText>
+          <LogoText>{title}</LogoText>
         </Link>
         <div>
-          <a key={'switcher'} href={newHref} target={'_self'} aria-label="language switcher" >
-            <LinkText>{isChinese ? 'English' : '中文'}</LinkText>
-          </a>
-          {
-            (themeConfig.menus || []).map(menu=>{
-              const ele = menu || {};
-              const isExternalLink = (ele.link || '').startsWith('http') || (ele.link || '').startsWith('//');
-              return (
-                <a key={ele.title} href={ele.link} target={isExternalLink ? "_blank" : '_self'} aria-label="external links" ><LinkText><span>{ele.title}</span>{isExternalLink && <Icon type="link" />}</LinkText></a>
-              )
-            })
-          }
+          {(themeConfig.menus || []).map((menu: any) => {
+            const ele = menu || {}
+            const isExternalLink =
+              (ele.link || '').startsWith('http') || (ele.link || '').startsWith('//')
+            return (
+              <a
+                key={ele.title}
+                href={ele.link}
+                target={isExternalLink ? '_blank' : '_self'}
+                aria-label="external links"
+              >
+                <LinkText>
+                  <span>{ele.title}</span>
+                  {isExternalLink && <Icon type="link" />}
+                </LinkText>
+              </a>
+            )
+          })}
         </div>
       </HeaderBar>
       <Content>
         {!fullpage && <Sidebar />}
         <Wrapper>
           <Container fullpage={fullpage}>{content}</Container>
-          {!fullpage && <AnchorWrapper>
+          {!fullpage && (
+            <AnchorWrapper>
               <div>
                 {anchors.map(a => (
-                  <Anchor onClick={(e) => onClickAnchor(e, a.slug)} key={a.slug} slug={a.slug} isCurrent={currentSlug === a.slug} depth={a.depth}>
-                    <LinkWrapper
-                      className="page-anchor"
-                      to={''}
-                      style={highlightAnchor(a.slug)}
-                    >
+                  <Anchor
+                    onClick={e => onClickAnchor(e, a.slug)}
+                    key={a.slug}
+                    slug={a.slug}
+                    isCurrent={currentSlug === a.slug}
+                    depth={a.depth}
+                  >
+                    <LinkWrapper className="page-anchor" to={''} style={highlightAnchor(a.slug)}>
                       {a.value}
                     </LinkWrapper>
                   </Anchor>
                 ))}
               </div>
-            </AnchorWrapper>}
+            </AnchorWrapper>
+          )}
         </Wrapper>
       </Content>
     </Main>

@@ -1,7 +1,7 @@
 {
-  "name": "docz-theme-umi-hooks",
-  "version": "0.0.6",
-  "description": "The umi-hooks theme of docz.",
+  "name": "docz-theme-umi-yform",
+  "version": "0.0.8",
+  "description": "The yform theme of docz.",
   "license": "MIT",
   "main": "es/index.js",
   "module": "es/index.js",
